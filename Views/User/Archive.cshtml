@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+
+<marquee behavior="right" direction="right" scrollamount="25">
+    <img src="~/images/PASL.jpg" />
+</marquee>
+
+<form class="box login">
+    <fieldset class="boxBody" style="height:7px;"><h2><div><bold>PASL e-Procurement Management System</bold></div></h2></fieldset>
+    <fieldset class="boxBody">
+        <label>Username</label>
+        <input type="text" id="usr" title="enter username" class="usrname" tabindex="1" required="required" style="text-align:center;">
+        <label>Password</label>
+        <input id="pwd" type="password" title="enter password" class="pwd" tabindex="2" required="required" style="text-align:center;">
+        <div id="dvstat"></div>
+    </fieldset>
+
+    <footer>
+        <!--<label><input type="checkbox" tabindex="3">Know your ICT Policy</label>-->
+        <input type="submit" class="btnLogin" value="Login" tabindex="4"><br />
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year -<b><strong>PASL GH Ltd</strong></b></p>
+            </div>
+        </div>
+    </footer>
+</form>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.btnLogin').click(function (evnt) {
+                evnt.preventDefault();
+
+                $.post("@Url.Action("Login","User")",
+                    { usrname: $('#usr').val(), pwd: $('#pwd').val() })
+                    .done(function (msg) {
+                        if (msg.status.toString() == "true") {
+                            $('div#dvstat').empty().append('<b style="font-size:15px;color:green;">Login success. Redirecting...</b>').fadeIn('slow').fadeOut('slow');
+                            //window.location = "Home/Main";
+                            window.location = "@Url.Action("Main","Home")";
+                        }
+                        else if (msg.msg.toString() == "Incorrect login credentials") {
+                            $('div#dvstat').empty().append('<b style="font-size:15px;color:red;">Incorrect login credentials.Please try again</b>').fadeIn('slow').fadeOut('slow');
+                        }
+                        else if (msg.msg.toString() == "User account is de-activated") {
+                            $('div#dvstat').empty().append('<b style="font-size:12px;color:red;">User account is de-activated.Please contact Admin</b>').fadeIn('slow').fadeOut('slow');
+                        }
+                })
+
+
+            });
+
+            function animate(str) {
+                $('.usrname').balloon({
+                    tipSize: 24,
+                    css: {
+                        border: 'solid 4px #5baec0',
+                        padding: '10px',
+                        fontSize: '150%',
+                        fontWeight: 'bold',
+                        lineHeight: '3',
+                        backgroundColor: '#666',
+                        color: '#fff',
+                        content: str
+                    }
+                });
+            }
+
+            $('.usrname').blur(function () {
+                animate('<h1>Focus</h1>');
+            });
+
+            $('.usrname').click(function (btn) {
+                animate('<h3>Click</h3>');
+            });
+
+
+        });
+</script>

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/reset.css" rel="stylesheet" />
+    <link href="~/Content/structure.css" rel="stylesheet" />
+    <link href="~/Content/balloon.css" rel="stylesheet" />
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+    <link href="~/Content/awesome.css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/evCallbacks/usr.js"></script>
+    <script src="~/Scripts/balloon.js"></script>
+
+</head>
+<body class="bg login" oncontextmenu="return false;">
+    <div id="main">
+        @RenderBody()
+    </div>
+</body>
+</html>

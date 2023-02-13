@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Desktop";
+    Layout = "~/Views/Shared/Desktop.cshtml";
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/Desktop.js"></script>
+<script src="~/Scripts/App.js"></script>
+<script src="~/Scripts/Module.js"></script>
+<script src="~/Scripts/evCallbacks/access.js"></script>
+
+
+<div id="x-desktop">
+    <!----> <a href="http://extjs.com" target="_blank" style="margin:5px; float:right;">
+        <img src="~/images/PASL.jpg" style="height:60px;width:80px;" />
+    </a>
+
+            <dl id="x-shortcuts" class="dl">
+
+                <dt id="mast" class="master">
+                    <a id="dtCap">
+                        <img src="~/images/grid48x48.png" />
+                        <div>Setup</div>
+                    </a>
+                </dt>
+
+                <dt id="branchReq" class="grid branchReq">
+                    <a id="grd">
+                        <img src="~/images/grid48x48.png" />
+                        <div>Requisition</div>
+                    </a>
+                </dt>
+
+                <dt id="committee" class="grid committee">
+                    <a id="acc">
+                        <img src="~/images/grid48x48.png" />
+                        <div>Committees</div>
+                    </a>
+                </dt>
+
+                <dt id="management" class="grid management">
+                    <a id="recoveries">
+                        <img src="~/images/grid48x48.png" class="gridimg" />
+                        <div>Management</div>
+                    </a>
+                </dt>
+
+                <dt id="finControl" class="gen_modules finControl">
+                    <a id="cse_mgmt">
+                        <img src="~/images/grid48x48.png" class="gridimg" />
+                        <div>Financial Approval</div>
+                    </a>
+                </dt>
+
+                <dt id="capex" class="gen_modules capex">
+                    <a id="capex">
+                        <img src="~/images/grid48x48.png" class="gridimg" />
+                        <div>CAPEX</div>
+                    </a>
+                </dt>
+
+
+               <dt id="approval" class="gen_modules approval">
+                    <a id="approval">
+                        <img src="~/images/grid48x48.png" class="gridimg" />
+                        <div>Procurement Approval</div>
+                    </a>
+                </dt>
+
+                <dt id="acc-win-reports" class="reports">
+                    <a id="rept" href="#">
+                        <img src="~/images/s.gif" />
+                        <div>Reports</div>
+                    </a>
+                </dt>
+
+                <dt id="config" class="cred config">
+                    <a id="sysAdmin" href="#">
+                        <img src="~/images/app_credentials.png" />
+                        <div>User Configuration</div>
+                    </a>
+                </dt>
+
+                <dt id="acc-win-logout" class="ext">
+                    <a id="logoff">
+                        <img src="~/images/s.gif" style="background:no-repeat;" />
+                        <div>Log off</div>
+                    </a>
+                </dt>
+            </dl>
+
+</div>
+
+
+<div id="ux-taskbar">
+    <div id="ux-taskbar-start"></div>
+    <div id="ux-taskbuttons-panel"></div>
+    <div class="x-clear"></div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //$('#x-shortcuts dt').hide();
+        $('.dl dt').hide();
+        Ext.BLANK_IMAGE_URL = "../../images/s.gif";
+        Ext.QuickTips.init(); //enable tooltips
+        Ext.chart.Chart.CHART_URL = '~/images/charts.swf';
+
+        access.GetAssignedModules("@Url.Action("GetAssignedModules","Utility")", $('.dl dt'));
+        
+        $('#x-desktop').zoom = '90%';
+
+    });
+
+
+</script>

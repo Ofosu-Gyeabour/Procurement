@@ -1,0 +1,92 @@
+﻿@{
+    Layout = "~/Views/Shared/Login.cshtml";
+}
+
+
+<section class="login">
+    <div class="login_box">
+        <div class="left">
+            <div class="top_link">
+                @*<a href="#">
+                        <img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download" alt="">Return home
+                    </a>*@
+            </div>
+            <div class="contact">
+                <form action="">
+                    <h3>SIGN IN</h3>
+                    <input type="text" id="usr" tabindex="1" placeholder="USERNAME" required="required" style="text-align:center;">
+                    <input type="password" id="pwd" tabindex="2" placeholder="PASSWORD" required="required" style="text-align:center;">
+                    <button class="submit" type="submit" value="Login" tabindex="4">LET'S GO</button>
+                    <div id="dvstat"></div>
+                    <br /><br />
+                    <div class="content-wrapper">
+                        <div class="float-left">
+                            <p style="text-align:center">&copy; @DateTime.Now.Year -<b><strong>PASL GH Ltd</strong></b></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="right">
+            <div class="right-text">
+                <h2>PASL</h2>
+                <h5>eProcurement Management System</h5>
+            </div>
+            <div class="right-inductor"><img src="https://lh3.googleusercontent.com/fife/ABSRlIoGiXn2r0SBm7bjFHea6iCUOyY0N2SrvhNUT-orJfyGNRSMO2vfqar3R-xs5Z4xbeqYwrEMq2FXKGXm-l_H6QAlwCBk9uceKBfG-FjacfftM0WM_aoUC_oxRSXXYspQE3tCMHGvMBlb2K1NAdU6qWv3VAQAPdCo8VwTgdnyWv08CmeZ8hX_6Ty8FzetXYKnfXb0CTEFQOVF4p3R58LksVUd73FU6564OsrJt918LPEwqIPAPQ4dMgiH73sgLXnDndUDCdLSDHMSirr4uUaqbiWQq-X1SNdkh-3jzjhW4keeNt1TgQHSrzW3maYO3ryueQzYoMEhts8MP8HH5gs2NkCar9cr_guunglU7Zqaede4cLFhsCZWBLVHY4cKHgk8SzfH_0Rn3St2AQen9MaiT38L5QXsaq6zFMuGiT8M2Md50eS0JdRTdlWLJApbgAUqI3zltUXce-MaCrDtp_UiI6x3IR4fEZiCo0XDyoAesFjXZg9cIuSsLTiKkSAGzzledJU3crgSHjAIycQN2PH2_dBIa3ibAJLphqq6zLh0qiQn_dHh83ru2y7MgxRU85ithgjdIk3PgplREbW9_PLv5j9juYc1WXFNW9ML80UlTaC9D2rP3i80zESJJY56faKsA5GVCIFiUtc3EewSM_C0bkJSMiobIWiXFz7pMcadgZlweUdjBcjvaepHBe8wou0ZtDM9TKom0hs_nx_AKy0dnXGNWI1qftTjAg=w1920-h979-ft" alt=""></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.submit').click(function (evnt) {
+
+                evnt.preventDefault();
+
+                $.post("@Url.Action("Login","User")",
+                    { usrname: $('#usr').val(), pwd: $('#pwd').val() })
+                    .done(function (msg) {
+                        if (msg.status.toString() == "true") {
+                            $('div#dvstat').empty().append('<b style="font-size:15px;color:green;">Login success. Redirecting...</b>').fadeIn('slow').fadeOut('slow');
+                            //window.location = "Home/Main";
+                            window.location = "@Url.Action("Main","Home")";
+                        }
+                        else if (msg.msg.toString() == "false") {
+                            $('div#dvstat').empty().append('<b style="font-size:15px;color:red;">Incorrect login credentials.Please try again</b>').fadeIn('slow').fadeOut('slow');
+                        }
+                        else if (msg.msg.toString() == "User account is de-activated") {
+                            $('div#dvstat').empty().append('<b style="font-size:12px;color:red;">User account is de-activated.Please contact Admin</b>').fadeIn('slow').fadeOut('slow');
+                        }
+                })
+
+
+            });
+
+            function animate(str) {
+                $('.usrname').balloon({
+                    tipSize: 24,
+                    css: {
+                        border: 'solid 4px #5baec0',
+                        padding: '10px',
+                        fontSize: '150%',
+                        fontWeight: 'bold',
+                        lineHeight: '3',
+                        backgroundColor: '#666',
+                        color: '#fff',
+                        content: str
+                    }
+                });
+            }
+
+            $('.usrname').blur(function () {
+                animate('<h1>Focus</h1>');
+            });
+
+            $('.usrname').click(function (btn) {
+                animate('<h3>Click</h3>');
+            });
+
+
+        });
+    </script>
+</section>
